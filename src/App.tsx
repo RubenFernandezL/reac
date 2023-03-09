@@ -1,5 +1,4 @@
 import "./styles.css";
-import React from "react";
 import {
   BarChart,
   Bar,
@@ -24,7 +23,20 @@ const project = {
       startDate: "1899-11-30",
       endDate: "1899-11-30",
       plannings: [],
-      activities: [],
+      activities: [
+        {
+          researcher: {
+            id: "ines.lopezb",
+            name: "Inés Lopez Baldominos",
+            email: "ines.lopezb@edu.uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-09",
+          hours: "7.5",
+        },
+      ],
     },
     {
       id: "PR2",
@@ -89,7 +101,32 @@ const project = {
       startDate: "1899-11-30",
       endDate: "1899-11-30",
       plannings: [],
-      activities: [],
+      activities: [
+        {
+          researcher: {
+            id: "manuel.buenaga",
+            name: "Manuel de Buenaga Rodríguez",
+            email: "manuel.buenaga@uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-09",
+          hours: "7.5",
+        },
+        {
+          researcher: {
+            id: "vera.pospelova",
+            name: "Vera Pospelova",
+            email: "vera.pospelova@uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-10",
+          hours: "7.5",
+        },
+      ],
     },
     {
       id: "PR4",
@@ -102,57 +139,56 @@ const project = {
   ],
 };
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+const workPackageData = project.workPackages.reduce<{
+  data: any[];
+  researchers: string[];
+}>(
+  (acc, workPackage) => {
+    const dataObject: any = {};
+    let hours = 0;
+    workPackage.activities.forEach((activity) => {
+      if (!dataObject[activity.researcher.name])
+        dataObject[activity.researcher.name] = +activity.hours;
+      else
+        dataObject[activity.researcher.name] =
+          dataObject[activity.researcher.name] + +activity.hours;
+      if (
+        !acc.researchers.some(
+          (researcher) => researcher === activity.researcher.name
+        )
+      )
+        acc.researchers.push(activity.researcher.name);
+      hours = hours + +activity.hours;
+    });
+    dataObject.description = `${
+      workPackage.description ?? workPackage.id
+    } - ${hours}h`;
+    acc.data.push(dataObject);
+    return acc;
   },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
+  { data: [], researchers: [] }
+);
+console.log(workPackageData);
+
+const colors = [
+  "#FF671F",
+  "#981D97",
+  "#A4343A",
+  "#41B6E6",
+  "#00AF66",
+  "#003DA5",
+  "#28724F",
+  "#FFA300",
+  "#EF3340",
+  "#D0006F",
 ];
 
 export default function App() {
   return (
     <BarChart
-      width={500}
-      height={300}
-      data={data}
+      width={1000}
+      height={600}
+      data={workPackageData.data}
       margin={{
         top: 20,
         right: 30,
@@ -160,14 +196,19 @@ export default function App() {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <CartesianGrid />
+      <XAxis dataKey="description" />
       <YAxis />
       <Tooltip />
-      <Legend />
-      <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-      <Bar dataKey="amt" stackId="a" fill="#82ca9d" />
-      <Bar dataKey="uv" stackId="a" fill="#ffc658" />
+      <Legend />(
+      {workPackageData.researchers.map((researcher, index) => (
+        <Bar
+          key={researcher}
+          dataKey={researcher}
+          stackId="a"
+          fill={colors[index]}
+        />
+      ))}
     </BarChart>
   );
 }

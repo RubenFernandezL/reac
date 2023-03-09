@@ -2,3 +2,12 @@
   font-family: sans-serif;
   text-align: center;
 }
+.recharts-legend-wrapper ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: initial;
+}
+
+.recharts-legend-wrapper li {
+  text-align: left;
+}
