@@ -10,6 +10,98 @@ import {
   Legend,
 } from "recharts";
 
+const project = {
+  id: "2021-1-IT01-KA220-VET-000032964",
+  acronym: "VELA",
+  name: "VELA",
+  startDate: "2022-01-01",
+  endDate: null,
+  researchers: [],
+  workPackages: [
+    {
+      id: "PR1",
+      description: "PR1",
+      startDate: "1899-11-30",
+      endDate: "1899-11-30",
+      plannings: [],
+      activities: [],
+    },
+    {
+      id: "PR2",
+      description: "PR2",
+      startDate: "1899-11-30",
+      endDate: "1899-11-30",
+      plannings: [],
+      activities: [
+        {
+          researcher: {
+            id: "ines.lopezb",
+            name: "Inés Lopez Baldominos",
+            email: "ines.lopezb@edu.uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-09",
+          hours: "7.5",
+        },
+        {
+          researcher: {
+            id: "manuel.buenaga",
+            name: "Manuel de Buenaga Rodríguez",
+            email: "manuel.buenaga@uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-09",
+          hours: "7.5",
+        },
+        {
+          researcher: {
+            id: "vera.pospelova",
+            name: "Vera Pospelova",
+            email: "vera.pospelova@uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-09",
+          hours: "7.5",
+        },
+        {
+          researcher: {
+            id: "vera.pospelova",
+            name: "Vera Pospelova",
+            email: "vera.pospelova@uah.es",
+            isActive: true,
+            applicationRole: "ROLE_USER",
+            contracts: [],
+          },
+          date: "2023-01-10",
+          hours: "7.5",
+        },
+      ],
+    },
+    {
+      id: "PR3",
+      description: "PR3",
+      startDate: "1899-11-30",
+      endDate: "1899-11-30",
+      plannings: [],
+      activities: [],
+    },
+    {
+      id: "PR4",
+      description: "PR4",
+      startDate: "1899-11-30",
+      endDate: "1899-11-30",
+      plannings: [],
+      activities: [],
+    },
+  ],
+};
+
 const data = [
   {
     name: "Page A",
@@ -58,6 +150,8 @@ const data = [
 export default function App() {
   return (
     <BarChart
+      width={500}
+      height={300}
       data={data}
       margin={{
         top: 20,
